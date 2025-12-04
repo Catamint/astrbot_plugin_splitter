@@ -1,16 +1,31 @@
 {
   "split_regex": {
-    "description": "用于识别分段点的正则表达式。建议包含常见的句末标点。默认值匹配：句号、问号、感叹号、省略号、换行符。",
+    "description": "用于识别分段点的正则表达式。",
+    "hint": "建议包含常见的句末标点。默认值匹配：句号、问号、感叹号、省略号、换行符。",
     "type": "string",
     "default": "[。？！?!\\n…]+"
   },
+  "clean_regex": {
+    "description": "分段后清理内容的正则表达式。",
+    "hint": "匹配到的内容将在发送前被删除。常用于去除分段后残留的换行符或句号。默认为空（不清理）。示例：[。\n]",
+    "type": "string",
+    "default": ""
+  },
+  "max_segments": {
+    "description": "最大分段数量。",
+    "hint": "限制最大的发送条数，超过此数量的剩余内容将会合并到最后一条发送。防止刷屏风控。建议设置为 5-10。",
+    "type": "int",
+    "default": 7
+  },
   "enable_smart_split": {
-    "description": "是否开启智能识别。开启后，不会在引号、书名号、括号等成对符号内部进行分段，保持引用的完整性。",
+    "description": "是否开启智能识别。",
+    "hint": "开启后，不会在引号、书名号、括号等成对符号内部进行分段，保持引用的完整性。",
     "type": "bool",
     "default": true
   },
   "delay_strategy": {
-    "description": "分段发送的延迟策略。\n'fixed': 固定间隔\n'random': 在最小值和最大值之间随机\n'log': 基于字数的对数函数（模拟人类阅读/打字节奏）",
+    "description": "分段发送的延迟策略。",
+    "hint": "'fixed': 固定间隔;\n'random': 在最小值和最大值之间随机;\n'log': 基于字数的对数函数（模拟人类阅读/打字节奏）",
     "type": "string",
     "options": ["fixed", "random", "log"],
     "default": "log"
@@ -36,7 +51,8 @@
     "default": 0.5
   },
   "log_factor": {
-    "description": "对数延迟模式的系数。公式：Base + Factor * log(字数 + 1)。系数越大，字数对延迟的影响越明显。",
+    "description": "对数延迟模式的系数。",
+    "hint": "公式：Base + Factor * log(字数 + 1)。系数越大，字数对延迟的影响越明显。",
     "type": "float",
     "default": 0.8
   }
