@@ -35,7 +35,7 @@
   },
   "enable_reply": {
     "description": "是否保留回复引用。",
-    "hint": "开启后，如果 LLM 的回复包含引用（Reply），将保留在第一段消息中；关闭则移除引用。",
+    "hint": "开启后，将在第一段消息中引用用户的原消息；关闭则不引用。",
     "type": "bool",
     "default": true
   },
@@ -48,6 +48,7 @@
   },
   "at_strategy": {
     "description": "At(@)组件的分段策略。",
+    "hint": "注意：通常 LLM 不会生成 At 组件，此选项仅对其他插件生成的 At 生效。",
     "type": "string",
     "options": ["单独", "跟随下段", "跟随上段", "嵌入"],
     "default": "跟随下段"
