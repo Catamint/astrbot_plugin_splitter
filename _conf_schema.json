@@ -44,6 +44,13 @@
     "type": "bool",
     "default": true
   },
+  "split_scope":{
+    "description": "分段内容",
+    "hint": "默认只对LLM生成内容进行分段，可选择吧插件输出也一起切了（我切我切我切！）",
+    "type": "string",
+    "options": ["llm_only", "all"],
+    "default": "llm_only"
+  }
   "image_strategy": {
     "description": "图片组件的分段策略。",
     "hint": "单独: 单独一条消息; 跟随下段: 跟随下一段文字; 跟随上段: 跟随上一段文字; 嵌入: 视为普通字符嵌入。",
