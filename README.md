@@ -55,7 +55,7 @@
 # 联系
 | 作者信息 | 交流/反馈 |
 | :--- | :--- |
-| **作者**: 糯米茨<br>**联系方式**: （许愿通道）<br>- [GitHub Issues](https://github.com/nuomicici/astrbot_plugin_Favour_Ultra/issues)<br>- [QQ](https://qm.qq.com/q/wMGXYfKKoS) | <img src="/QC.jpg" width="240px"> |
+| **作者**: 糯米茨<br>**联系方式**: （许愿通道）<br>- [GitHub Issues](https://github.com/nuomicici/astrbot_plugin_Favour_Ultra/issues)<br>- [QQ](https://qm.qq.com/q/wMGXYfKKoS) | <img src="https://github.com/nuomicici/astrbot_plugin_Favour_Ultra/blob/main/QC.jpg?raw=true" width="240px"> |
 
 ## 求你们了
 来~~鞭策~~支持一下叭！
