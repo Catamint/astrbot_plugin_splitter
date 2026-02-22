@@ -313,9 +313,8 @@ class MessageSplitterPlugin(Star):
         parts = re.split(f"{pattern}", text)
         for part in parts:
             if part: buffer.append(Plain(part))
-            buffer.append(Plain(pattern))
-        if buffer and isinstance(buffer[-1], Plain) and buffer[-1].text == pattern:
-            buffer.pop()
+            segments.append(buffer[:])
+            buffer.clear()
 
     def _process_text_smart(self, text: str, pattern: str, segments: list, buffer: list):
         stack = []
