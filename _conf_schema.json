@@ -18,6 +18,12 @@
     "type": "string",
     "default": "[。？！?!\\n…]+"
   },
+  "tag_mode": {
+    "description": "分段时是否保留分隔符。",
+    "hint": "开启后，分隔符将作为独立的消息段保留；关闭则被移除。",
+    "type": "bool",
+    "default": false
+  },
   "clean_regex": {
     "description": "分段后清理内容的正则表达式。",
     "type": "string",
