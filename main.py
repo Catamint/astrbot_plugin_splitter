@@ -61,7 +61,7 @@ class MessageSplitterPlugin(Star):
             split_pattern = self.config.get("split_regex", r"[。？！?!\\n…]+")
 
         clean_pattern = self.config.get("clean_regex", "")
-        tag_mode = self.config.get("tag_mode", False)
+        del_segment = self.config.get("del_segment", False)
         smart_mode = self.config.get("enable_smart_split", True)
         max_segs = self.config.get("max_segments", 7)
         enable_reply = self.config.get("enable_reply", True)
@@ -74,7 +74,7 @@ class MessageSplitterPlugin(Star):
         }
 
         # 5. 执行分段
-        segments = self.split_chain_smart(result.chain, split_pattern, tag_mode, smart_mode, strategies, enable_reply)
+        segments = self.split_chain_smart(result.chain, split_pattern, del_segment, smart_mode, strategies, enable_reply)
 
         # 6. 最大分段数限制
         if len(segments) > max_segs and max_segs > 0:
@@ -252,7 +252,7 @@ class MessageSplitterPlugin(Star):
         else:
             return self.config.get("fixed_delay", 1.5)
 
-    def split_chain_smart(self, chain: List[BaseMessageComponent], pattern: str, tag_mode: bool, smart_mode: bool, strategies: Dict[str, str], enable_reply: bool) -> List[List[BaseMessageComponent]]:
+    def split_chain_smart(self, chain: List[BaseMessageComponent], pattern: str, del_segment: bool, smart_mode: bool, strategies: Dict[str, str], enable_reply: bool) -> List[List[BaseMessageComponent]]:
         segments = []
         current_chain_buffer = []
 
@@ -260,7 +260,7 @@ class MessageSplitterPlugin(Star):
             if isinstance(component, Plain):
                 text = component.text
                 if not text: continue
-                if tag_mode:
+                if del_segment:
                     self._process_text_tag(text, pattern, segments, current_chain_buffer)
                 elif not smart_mode:
                     self._process_text_simple(text, pattern, segments, current_chain_buffer)
@@ -310,7 +310,12 @@ class MessageSplitterPlugin(Star):
         if temp_text: buffer.append(Plain(temp_text))
 
     def _process_text_tag(self, text: str, pattern: str, segments: list, buffer: list):
-        segments.extend(re.split(f"{pattern}", text))
+        parts = re.split(f"{pattern}", text)
+        for part in parts:
+            if part: buffer.append(Plain(part))
+            buffer.append(Plain(pattern))
+        if buffer and isinstance(buffer[-1], Plain) and buffer[-1].text == pattern:
+            buffer.pop()
 
     def _process_text_smart(self, text: str, pattern: str, segments: list, buffer: list):
         stack = []
